@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="IBM MAS PFVT Cost and Sizing Advisor - Estimate costs for IBM Maximo Application Suite deployments on ROKS clusters">
+    <title>IBM MAS PFVT Cost & Sizing Advisor</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/landing.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-title">
+                    <h1>🔧 IBM MAS PFVT Cost & Sizing Advisor</h1>
+                    <span id="current-mode-title"></span>
+                </div>
+                <div class="header-actions">
+                    <button id="back-to-landing" class="btn btn-secondary" style="display: none;">
+                        ← Back to Home
+                    </button>
+                    <button id="btn-help" class="btn btn-secondary" title="Help & Documentation">
+                        <span>❓</span> Help
+                    </button>
+                    <button id="btn-scenarios" class="btn btn-secondary" title="View Saved Scenarios">
+                        <span>💾</span> Scenarios (<span id="scenario-count">0</span>)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="app-main">
+        <div class="container">
+            
+            <!-- Landing Page -->
+            <div id="landing-page">
+                <div class="landing-hero">
+                    <h1>Welcome to PFVT Advisor</h1>
+                    <p>Choose your path: Estimate resources for new MAS deployments or analyze existing PFVT clusters for cost optimization</p>
+                </div>
+                
+                <div class="mode-selection">
+                    <!-- MAS Resource Estimation Card -->
+                    <div class="mode-card">
+                        <span class="mode-icon">📊</span>
+                        <h2>MAS Resource Estimation</h2>
+                        <p>Plan and estimate costs for new IBM Maximo Application Suite deployments</p>
+                        <ul class="mode-features">
+                            <li>6 MAS baseline configurations</li>
+                            <li>46 worker flavor options</li>
+                            <li>Zone-aware cost scoring</li>
+                            <li>Risk assessment & recommendations</li>
+                            <li>Scenario comparison</li>
+                            <li>PFVT pipeline integration</li>
+                        </ul>
+                        <button id="btn-mas-estimation" class="mode-btn">
+                            Start Estimation
+                        </button>
+                    </div>
+                    
+                    <!-- PFVT Cluster Analysis Card -->
+                    <div class="mode-card admin-only">
+                        <span class="mode-icon">🔍</span>
+                        <h2>PFVT Cluster Analysis</h2>
+                        <p>Analyze existing IBM Cloud clusters for cost optimization and insights</p>
+                        <ul class="mode-features">
+                            <li>Live IBM Cloud integration</li>
+                            <li>Automated cluster discovery</li>
+                            <li>Complete hardware specs</li>
+                            <li>Cost breakdown & trends</li>
+                            <li>Professional Excel reports</li>
+                            <li>Optimization recommendations</li>
+                        </ul>
+                        <button id="btn-cluster-analysis" class="mode-btn admin">
+                            Analyze Clusters
+                        </button>
+                        <span class="admin-badge">🔐 Admin Access Required</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- MAS Estimation Content -->
+            <div id="mas-estimation-content" style="display: none;">
+            
+            <!-- Configuration Section -->
+            <section class="card" id="configuration-section">
+                <div class="card-header">
+                    <h2>📋 Configuration Selection</h2>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="mas-config">Select MAS Configuration:</label>
+                        <select id="mas-config" class="form-control">
+                            <option value="">-- Select Configuration --</option>
+                        </select>
+                    </div>
+                    
+                    <div id="config-details" class="config-details" style="display: none;">
+                        <div class="info-box">
+                            <h3 id="config-name"></h3>
+                            <p id="config-description"></p>
+                            <div class="config-specs">
+                                <div class="spec-item">
+                                    <span class="spec-label">Components:</span>
+                                    <span id="config-components" class="spec-value"></span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">Baseline:</span>
+                                    <span id="config-baseline" class="spec-value"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deployment Options Section -->
+            <section class="card" id="deployment-section" style="display: none;">
+                <div class="card-header">
+                    <h2>⚙️ Deployment Options</h2>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="zone-count">Number of Zones:</label>
+                            <select id="zone-count" class="form-control">
+                                <option value="1">1 Zone (Development)</option>
+                                <option value="2" selected>2 Zones (Production - Recommended)</option>
+                                <option value="3">3 Zones (Mission Critical)</option>
+                            </select>
+                            <small class="form-help">Multi-zone deployments provide high availability</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="worker-flavor">Worker Node Flavor:</label>
+                            <select id="worker-flavor" class="form-control">
+                                <option value="">-- Select Flavor --</option>
+                            </select>
+                            <small class="form-help">Select instance type based on workload requirements</small>
+                        </div>
+                    </div>
+                    
+                    <div id="flavor-details" class="flavor-details" style="display: none;">
+                        <div class="info-box info-box-secondary">
+                            <h4>Selected Flavor Specifications</h4>
+                            <div class="flavor-specs">
+                                <div class="spec-item">
+                                    <span class="spec-label">vCPU:</span>
+                                    <span id="flavor-vcpu" class="spec-value"></span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">RAM:</span>
+                                    <span id="flavor-ram" class="spec-value"></span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">Storage:</span>
+                                    <span id="flavor-storage" class="spec-value"></span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">Network:</span>
+                                    <span id="flavor-network" class="spec-value"></span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">Hourly Rate:</span>
+                                    <span id="flavor-rate" class="spec-value"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button id="btn-calculate" class="btn btn-primary btn-large">
+                            Calculate Costs
+                        </button>
+                    </div>
+                </div>
+            
+            </div>
+            <!-- End MAS Estimation Content -->
+            
+            <!-- Cluster Analysis Content -->
+            <div id="cluster-analysis-content" style="display: none;">
+            
+            <!-- IBM Cloud Cluster Analysis Section -->
+            <section class="card" id="cluster-analysis-section">
+                <div class="card-header">
+                    <h2>☁️ IBM Cloud Cluster Analysis</h2>
+                    <p class="subtitle">Analyze existing ROKS clusters and identify cost optimization opportunities</p>
+                </div>
+                <div class="card-body">
+                    <div class="cluster-analysis-intro">
+                        <p>Connect to your IBM Cloud account to analyze all ROKS clusters, calculate costs, and generate optimization recommendations.</p>
+                        <div class="analysis-actions-top">
+                            <button id="btn-analyze-clusters" class="btn btn-primary btn-large">
+                                <span class="icon">🔍</span> Analyze My Clusters
+                            </button>
+                            <button id="btn-analyze-export" class="btn btn-success btn-large">
+                                <span class="icon">📊</span> Analyze & Export to Excel
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Results will be displayed here -->
+                    <div id="cluster-analysis-results" style="display: none;"></div>
+                </div>
+            </section>
+            </div>
+            <!-- End of Cluster Analysis Content -->
+
+            <!-- Results Section -->
+            <section class="card" id="results-section" style="display: none;">
+                <div class="card-header">
+                    <h2>📊 Cost Estimation Results</h2>
+                </div>
+                <div class="card-body">
+                    
+                    <!-- Cost Score Badge -->
+                    <div id="cost-score-badge" class="cost-score-badge">
+                        <div class="score-icon" id="score-icon">🟢</div>
+                        <div class="score-label">PFVT COST SCORE</div>
+                        <div class="score-value" id="score-value">GREEN</div>
+                        <div class="score-description" id="score-description">Optimal Cost</div>
+                        <div class="score-amount" id="score-amount">$0.00/month</div>
+                        <div class="score-message" id="score-message"></div>
+                    </div>
+
+                    <!-- Cluster Summary -->
+                    <div class="cluster-summary">
+                        <h3>Cluster Summary</h3>
+                        <div class="summary-grid">
+                            <div class="summary-item">
+                                <span class="summary-label">Workers</span>
+                                <span class="summary-value" id="summary-workers">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Zones</span>
+                                <span class="summary-value" id="summary-zones">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Total Nodes</span>
+                                <span class="summary-value" id="summary-nodes">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">vCPU per Node</span>
+                                <span class="summary-value" id="summary-vcpu">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">RAM per Node</span>
+                                <span class="summary-value" id="summary-ram">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Disk per Node</span>
+                                <span class="summary-value" id="summary-disk">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cost Breakdown -->
+                    <div class="cost-breakdown">
+                        <h3>Cost Breakdown</h3>
+                        <div class="cost-formula" id="cost-formula"></div>
+                        <div class="cost-grid">
+                            <div class="cost-item">
+                                <span class="cost-label">Hourly Cost</span>
+                                <span class="cost-value" id="cost-hourly">$0.00</span>
+                            </div>
+                            <div class="cost-item">
+                                <span class="cost-label">Monthly Cost</span>
+                                <span class="cost-value cost-value-primary" id="cost-monthly">$0.00</span>
+                            </div>
+                            <div class="cost-item">
+                                <span class="cost-label">Yearly Cost</span>
+                                <span class="cost-value" id="cost-yearly">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Risk Assessment -->
+                    <div class="risk-assessment">
+                        <h3>⚠️ Risk Assessment</h3>
+                        <div id="risk-summary" class="risk-summary"></div>
+                        <div id="risk-list" class="risk-list"></div>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="recommendations">
+                        <h3>💡 Recommendations</h3>
+                        <div id="recommendation-list" class="recommendation-list"></div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="result-actions">
+                        <button id="btn-trigger-pfvt" class="btn btn-success btn-large">
+                            🚀 Trigger PFVT
+                        </button>
+                        <button id="btn-save-scenario" class="btn btn-primary">
+                            💾 Save as Scenario
+                        </button>
+                        <button id="btn-export-results" class="btn btn-secondary">
+                            📥 Export Results
+                        </button>
+                        <button id="btn-new-calculation" class="btn btn-secondary">
+                            🔄 New Calculation
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="container">
+            <p>&copy; 2025 IBM MAS PFVT Cost & Sizing Advisor | For ROKS Clusters Only</p>
+            <p class="footer-note">Cost estimates are approximate. Actual costs may vary based on usage and IBM Cloud pricing.</p>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    
+    <!-- Save Scenario Modal -->
+    <div id="modal-save-scenario" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>💾 Save Scenario</h2>
+                <button class="modal-close" data-modal="modal-save-scenario">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="scenario-name">Scenario Name:</label>
+                    <input type="text" id="scenario-name" class="form-control" placeholder="e.g., Production Deployment">
+                </div>
+                <div class="form-group">
+                    <label for="scenario-notes">Notes (Optional):</label>
+                    <textarea id="scenario-notes" class="form-control" rows="3" placeholder="Add any notes about this scenario..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal="modal-save-scenario">Cancel</button>
+                <button id="btn-confirm-save" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scenarios List Modal -->
+    <div id="modal-scenarios" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>💾 Saved Scenarios</h2>
+                <button class="modal-close" data-modal="modal-scenarios">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="scenarios-toolbar">
+                    <input type="text" id="search-scenarios" class="form-control" placeholder="Search scenarios...">
+                    <button id="btn-delete-all-scenarios" class="btn btn-danger-outline">Delete All</button>
+                </div>
+                <div id="scenarios-list" class="scenarios-list">
+                    <!-- Scenarios will be populated here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal="modal-scenarios">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="modal-help" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>❓ Help & Documentation</h2>
+                <button class="modal-close" data-modal="modal-help">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="help-content">
+                    <h3>About This Tool</h3>
+                    <p>The IBM MAS PFVT Cost & Sizing Advisor helps you estimate costs for IBM Maximo Application Suite (MAS) deployments on Red Hat OpenShift Kubernetes Service (ROKS) clusters.</p>
+                    
+                    <h3>How to Use</h3>
+                    <ol>
+                        <li><strong>Select MAS Configuration:</strong> Choose from 6 baseline configurations based on your MAS components</li>
+                        <li><strong>Choose Deployment Options:</strong> Select number of zones (1-3) and worker node flavor</li>
+                        <li><strong>Calculate Costs:</strong> View detailed cost breakdown and PFVT Cost Score</li>
+                        <li><strong>Review Risks & Recommendations:</strong> Address any issues before deployment</li>
+                        <li><strong>Save Scenario:</strong> Save for future reference and comparison</li>
+                    </ol>
+                    
+                    <h3>PFVT Cost Score</h3>
+                    <p>The cost score provides instant visual feedback on your configuration costs:</p>
+                    <ul>
+                        <li><strong>🟢 GREEN (Optimal):</strong> Cost is within optimal range</li>
+                        <li><strong>🟡 AMBER (Moderate):</strong> Cost is moderate, review for optimization</li>
+                        <li><strong>🔴 RED (High):</strong> Cost is high, optimization recommended</li>
+                    </ul>
+                    <p><em>Thresholds adjust based on number of zones selected.</em></p>
+                    
+                    <h3>Multi-Zone Deployments</h3>
+                    <p>Worker node costs are multiplied by the number of zones:</p>
+                    <p><code>Total Cost = Workers × Zones × Hourly Rate × Hours</code></p>
+                    <p>Example: 3 workers × 2 zones × $0.94/hr × 730 hrs = $4,117.20/month</p>
+                    
+                    <h3>Support</h3>
+                    <p>For questions or issues, refer to the IBM MAS documentation or contact your IBM representative.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-modal="modal-help">Got It</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner"></div>
+        <p>Calculating costs...</p>
+    </div>
+    <!-- PFVT Side Panel -->
+    <div id="pfvt-side-panel" class="pfvt-side-panel">
+        <div class="pfvt-panel-header">
+            <h2>🚀 PFVT Integration</h2>
+            <button class="pfvt-panel-close" onclick="closePFVTPanel()">&times;</button>
+        </div>
+        <div class="pfvt-panel-content" id="pfvt-panel-content">
+            <!-- Content will be dynamically inserted here -->
+        </div>
+    </div>
+    
+    <!-- Overlay for side panel -->
+    <div id="pfvt-panel-overlay" class="pfvt-panel-overlay" onclick="closePFVTPanel()"></div>
+
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- JavaScript -->
+    <script src="js/auth.js"></script>
+    <script src="js/mode-selector.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/flavors.js"></script>
+    <script src="js/calculator.js"></script>
+    <script src="js/risk-assessor.js"></script>
+    <script src="js/cluster-analysis.js"></script>
+    <script src="js/recommendations.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/pfvt-integration.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

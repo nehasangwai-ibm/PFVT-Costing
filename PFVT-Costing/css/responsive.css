@@ -1,0 +1,579 @@
+/**
+ * IBM MAS PFVT Cost and Sizing Advisor
+ * Responsive Styles
+ */
+
+/* ===== Tablet (768px and below) ===== */
+@media (max-width: 768px) {
+    /* Typography */
+    h1 { font-size: 1.75rem; }
+    h2 { font-size: 1.25rem; }
+    h3 { font-size: 1.125rem; }
+    
+    /* Header */
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-md);
+    }
+    
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .header-actions .btn {
+        flex: 1;
+        justify-content: center;
+    }
+    
+    /* Container */
+    .container {
+        padding: 0 var(--spacing-md);
+    }
+    
+    /* Cards */
+    .card-body {
+        padding: var(--spacing-lg);
+    }
+    
+    /* Forms */
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .form-actions .btn {
+        width: 100%;
+    }
+    
+    /* Cost Score Badge */
+    .cost-score-badge {
+        padding: var(--spacing-xl);
+    }
+    
+    .score-icon {
+        font-size: 3rem;
+    }
+    
+    .score-value {
+        font-size: 2.5rem;
+    }
+    
+    .score-description {
+        font-size: 1.125rem;
+    }
+    
+    .score-amount {
+        font-size: 1.25rem;
+    }
+    
+    /* Summary Grid */
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Cost Grid */
+    .cost-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Config/Flavor Specs */
+    .config-specs,
+    .flavor-specs {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Result Actions */
+    .result-actions {
+        flex-direction: column;
+    }
+    
+    .result-actions .btn {
+        width: 100%;
+    }
+    
+    /* Modals */
+    .modal {
+        padding: var(--spacing-md);
+    }
+    
+    .modal-content {
+        max-height: 95vh;
+    }
+    
+    .modal-body {
+        padding: var(--spacing-lg);
+    }
+    
+    .modal-footer {
+        flex-direction: column-reverse;
+    }
+    
+    .modal-footer .btn {
+        width: 100%;
+    }
+    
+    /* Scenarios */
+    .scenarios-toolbar {
+        flex-direction: column;
+    }
+    
+    .scenario-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+    }
+    
+    .scenario-actions {
+        flex-wrap: wrap;
+    }
+    
+    .scenario-actions .btn {
+        flex: 1;
+        min-width: 120px;
+    }
+    
+    /* Toast */
+    .toast-container {
+        left: var(--spacing-md);
+        right: var(--spacing-md);
+        top: var(--spacing-md);
+    }
+    
+    .toast {
+        min-width: auto;
+        width: 100%;
+    }
+}
+
+/* ===== Mobile (480px and below) ===== */
+@media (max-width: 480px) {
+    /* Typography */
+    html {
+        font-size: 14px;
+    }
+    
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.125rem; }
+    h3 { font-size: 1rem; }
+    
+    /* Header */
+    .app-header {
+        padding: var(--spacing-md) 0;
+    }
+    
+    .header-title h1 {
+        font-size: 1.25rem;
+    }
+    
+    .subtitle {
+        font-size: 0.75rem;
+    }
+    
+    .header-actions .btn {
+        font-size: 0.875rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+    
+    .header-actions .btn span {
+        display: none;
+    }
+    
+    /* Main */
+    .app-main {
+        padding: var(--spacing-lg) 0;
+    }
+    
+    /* Container */
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+    
+    /* Cards */
+    .card {
+        margin-bottom: var(--spacing-lg);
+        border-radius: var(--radius-md);
+    }
+    
+    .card-header {
+        padding: var(--spacing-md);
+    }
+    
+    .card-body {
+        padding: var(--spacing-md);
+    }
+    
+    /* Forms */
+    .form-group {
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .form-control {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    /* Buttons */
+    .btn {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: 0.875rem;
+    }
+    
+    .btn-large {
+        padding: var(--spacing-md) var(--spacing-lg);
+        font-size: 1rem;
+    }
+    
+    /* Cost Score Badge */
+    .cost-score-badge {
+        padding: var(--spacing-lg);
+    }
+    
+    .score-icon {
+        font-size: 2.5rem;
+    }
+    
+    .score-label {
+        font-size: 0.75rem;
+    }
+    
+    .score-value {
+        font-size: 2rem;
+    }
+    
+    .score-description {
+        font-size: 1rem;
+    }
+    
+    .score-amount {
+        font-size: 1.125rem;
+    }
+    
+    .score-message {
+        font-size: 0.875rem;
+    }
+    
+    /* Summary Grid */
+    .summary-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+    }
+    
+    .summary-item {
+        padding: var(--spacing-sm);
+    }
+    
+    .summary-label {
+        font-size: 0.75rem;
+    }
+    
+    .summary-value {
+        font-size: 1.25rem;
+    }
+    
+    /* Cost Breakdown */
+    .cost-formula {
+        font-size: 0.75rem;
+        padding: var(--spacing-sm);
+    }
+    
+    .cost-item {
+        padding: var(--spacing-md);
+    }
+    
+    .cost-label {
+        font-size: 0.75rem;
+    }
+    
+    .cost-value {
+        font-size: 1.5rem;
+    }
+    
+    .cost-value-primary {
+        font-size: 1.75rem;
+    }
+    
+    /* Info Boxes */
+    .info-box {
+        padding: var(--spacing-md);
+    }
+    
+    /* Risk & Recommendations */
+    .risk-item,
+    .recommendation-item {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .risk-title,
+    .recommendation-title {
+        font-size: 0.875rem;
+    }
+    
+    .risk-message,
+    .risk-recommendation,
+    .recommendation-message,
+    .recommendation-action {
+        font-size: 0.75rem;
+    }
+    
+    /* Modals */
+    .modal {
+        padding: 0;
+        align-items: flex-end;
+    }
+    
+    .modal-content {
+        max-width: 100%;
+        max-height: 90vh;
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+    
+    .modal-header {
+        padding: var(--spacing-md);
+    }
+    
+    .modal-header h2 {
+        font-size: 1.125rem;
+    }
+    
+    .modal-body {
+        padding: var(--spacing-md);
+    }
+    
+    .modal-footer {
+        padding: var(--spacing-md);
+    }
+    
+    /* Scenarios */
+    .scenario-card {
+        padding: var(--spacing-md);
+    }
+    
+    .scenario-title {
+        font-size: 1rem;
+    }
+    
+    .scenario-date,
+    .scenario-details {
+        font-size: 0.75rem;
+    }
+    
+    .scenario-score {
+        font-size: 0.75rem;
+        padding: 0.125rem var(--spacing-xs);
+    }
+    
+    .scenario-actions .btn {
+        font-size: 0.75rem;
+        padding: 0.25rem var(--spacing-sm);
+        min-width: 80px;
+    }
+    
+    /* Footer */
+    .app-footer {
+        padding: var(--spacing-md) 0;
+    }
+    
+    .app-footer p {
+        font-size: 0.75rem;
+    }
+    
+    .footer-note {
+        font-size: 0.625rem;
+    }
+    
+    /* Help Content */
+    .help-content {
+        font-size: 0.875rem;
+    }
+    
+    .help-content h3 {
+        font-size: 1rem;
+    }
+    
+    .help-content ul,
+    .help-content ol {
+        margin-left: var(--spacing-md);
+    }
+    
+    /* Loading Overlay */
+    .loading-spinner {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* ===== Large Desktop (1400px and above) ===== */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1400px;
+    }
+    
+    /* Cost Score Badge */
+    .score-icon {
+        font-size: 5rem;
+    }
+    
+    .score-value {
+        font-size: 3.5rem;
+    }
+    
+    /* Summary Grid */
+    .summary-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+    
+    /* Cost Grid */
+    .cost-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ===== Print Styles ===== */
+@media print {
+    /* Hide interactive elements */
+    .app-header,
+    .app-footer,
+    .btn,
+    .modal,
+    .toast-container,
+    .loading-overlay {
+        display: none !important;
+    }
+    
+    /* Adjust layout */
+    body {
+        background-color: white;
+    }
+    
+    .card {
+        box-shadow: none;
+        border: 1px solid #000;
+        page-break-inside: avoid;
+    }
+    
+    .cost-score-badge {
+        border: 2px solid #000;
+        page-break-inside: avoid;
+    }
+    
+    /* Ensure colors print */
+    .cost-score-badge,
+    .risk-item,
+    .recommendation-item {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    /* Page breaks */
+    .risk-assessment,
+    .recommendations {
+        page-break-before: auto;
+    }
+}
+
+/* ===== Accessibility ===== */
+
+/* Focus styles */
+*:focus {
+    outline: 2px solid var(--ibm-blue);
+    outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .card {
+        border: 2px solid var(--gray-100);
+    }
+    
+    .btn {
+        border: 2px solid currentColor;
+    }
+    
+    .cost-score-badge {
+        border-width: 4px;
+    }
+}
+
+/* Dark mode support (optional) */
+@media (prefers-color-scheme: dark) {
+    /* Uncomment to enable dark mode
+    :root {
+        --gray-10: #262626;
+        --gray-20: #393939;
+        --gray-50: #a8a8a8;
+        --gray-70: #c6c6c6;
+        --gray-100: #f4f4f4;
+        --white: #161616;
+    }
+    
+    body {
+        background-color: var(--gray-100);
+        color: var(--white);
+    }
+    
+    .card,
+    .modal-content {
+        background-color: var(--gray-10);
+    }
+    */
+}
+
+/* ===== Touch Device Optimizations ===== */
+@media (hover: none) and (pointer: coarse) {
+    /* Larger touch targets */
+    .btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .form-control {
+        min-height: 44px;
+    }
+    
+    .modal-close {
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    /* Remove hover effects */
+    .btn:hover,
+    .form-control:hover {
+        transform: none;
+    }
+}
+
+/* ===== Landscape Mobile ===== */
+@media (max-width: 768px) and (orientation: landscape) {
+    .modal-content {
+        max-height: 85vh;
+    }
+    
+    .cost-score-badge {
+        padding: var(--spacing-md);
+    }
+    
+    .score-icon {
+        font-size: 2rem;
+    }
+    
+    .score-value {
+        font-size: 1.75rem;
+    }
+}
+
+/* Made with Bob */
