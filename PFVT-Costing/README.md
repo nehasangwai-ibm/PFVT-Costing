@@ -5,12 +5,43 @@ A web-based cost estimation and sizing advisor for IBM Maximo Application Suite 
 ## 🎯 Overview
 
 The IBM MAS PFVT (Pre-Flight Validation Test) Cost & Sizing Advisor helps you:
-- Estimate costs for MAS deployments on ROKS
-- Select appropriate worker node flavors
-- Assess configuration risks
-- Get optimization recommendations
-- Compare different deployment scenarios
-- Track historical costs
+- **Estimate costs** for MAS deployments on ROKS
+- **Analyze existing clusters** with IBM Cloud integration
+- **Select appropriate** worker node flavors
+- **Assess configuration** risks
+- **Get optimization** recommendations
+- **Compare different** deployment scenarios
+- **Track historical** costs
+- **Export reports** to Excel
+
+## 🆕 What's New
+
+### 🎨 IBM Blue & Teal Theme
+- Professional IBM-branded color scheme
+- Modern gradient backgrounds
+- Enhanced visual hierarchy
+- Improved readability and contrast
+
+### 🔐 Admin Authentication
+- Secure access to cluster analysis features
+- Password-protected admin functions
+- Session-based authentication
+- **Admin Password**: `pfvt2024`
+
+### 🏠 Landing Page
+- Two-mode selection interface:
+  1. **MAS Resource Estimation** - Open to all users
+  2. **PFVT Cluster Analysis** - Admin access only
+- Clear feature descriptions
+- Intuitive navigation
+
+### 📊 IBM Cloud Cluster Analysis
+- Connect to IBM Cloud API
+- Analyze existing ROKS clusters
+- Real-time cost calculations
+- Hardware specifications display
+- Export analysis to Excel
+- Colored cost score badges (GREEN/AMBER/RED)
 
 ## ✨ Key Features
 
@@ -86,26 +117,99 @@ That's it! No npm install, no build process, no dependencies to manage.
 
 ## 📖 How to Use
 
-### Step 1: Select MAS Configuration
+### 🏠 Landing Page
+When you first open the application, you'll see two options:
+
+1. **MAS Resource Estimation** (Open Access)
+   - Estimate costs for new MAS deployments
+   - Select configurations and worker flavors
+   - Get recommendations and risk assessments
+   - Save and compare scenarios
+
+2. **PFVT Cluster Analysis** (Admin Only)
+   - Analyze existing IBM Cloud ROKS clusters
+   - View real-time cost data
+   - Export analysis to Excel
+   - Requires admin password: `pfvt2024`
+
+### 📊 MAS Resource Estimation Mode
+
+#### Step 1: Select MAS Configuration
 Choose from 6 baseline configurations based on your MAS components.
 
-### Step 2: Choose Deployment Options
+#### Step 2: Choose Deployment Options
 - Select number of zones (1, 2, or 3)
-- Choose worker node flavor from 18 options
+- Choose worker node flavor from 46 options
 
-### Step 3: Calculate Costs
+#### Step 3: Calculate Costs
 Click "Calculate Costs" to see:
-- **PFVT Cost Score** (prominent badge)
+- **PFVT Cost Score** (prominent colored badge)
 - Cluster summary (workers, zones, resources)
 - Cost breakdown (hourly, monthly, yearly)
 - Risk assessment
 - Recommendations
 
-### Step 4: Save Scenario (Optional)
+#### Step 4: Save Scenario (Optional)
 Save your configuration for future reference and comparison.
 
-### Step 5: Compare Scenarios (Optional)
+#### Step 5: Compare Scenarios (Optional)
 Load saved scenarios to compare different configurations.
+
+### 🔍 PFVT Cluster Analysis Mode (Admin)
+
+#### Step 1: Authentication
+- Click "PFVT Cluster Analysis" on landing page
+- Enter admin password: `pfvt2024`
+- Access granted for current session
+
+#### Step 2: Configure IBM Cloud Access
+1. Navigate to backend directory
+2. Copy `.env.example` to `.env`
+3. Add your IBM Cloud API key:
+   ```
+   IBM_CLOUD_API_KEY=your_api_key_here
+   IBM_CLOUD_REGION=us-south
+   ```
+
+#### Step 3: Start Backend Server
+```bash
+cd backend
+npm install
+npm start
+```
+Server runs on `http://localhost:3001`
+
+#### Step 4: Analyze Clusters
+1. Click "Analyze Clusters" button
+2. View comprehensive cluster analysis:
+   - Cluster name and state
+   - Creation date and uptime
+   - Worker count and flavor
+   - CPU, Memory, Disk specifications
+   - Zone configuration
+   - Monthly cost with colored score badge
+   - Optimization recommendations
+
+#### Step 5: Export to Excel
+- Click "Export to Excel" button
+- Download comprehensive analysis report
+- Includes all cluster details and costs
+
+### 🎨 Cost Score Color Indicators
+
+The application uses colored badges to indicate cost levels:
+
+- **🟢 GREEN**: Optimal cost range
+  - Light green background (#defbe6)
+  - Dark green text and border (#24a148)
+  
+- **🟡 AMBER**: Moderate cost, review recommended
+  - Light yellow background (#fcf4d6)
+  - Dark yellow text and border (#f1c21b)
+  
+- **🔴 RED**: High cost, optimization needed
+  - Light red background (#fff1f1)
+  - Dark red text and border (#fa4d56)
 
 ## 💡 Cost Calculation Formula
 
@@ -146,26 +250,40 @@ Example:
 ### File Structure
 ```
 PFVT-Costing/
-├── index.html              # Main application
+├── index.html                    # Main application
 ├── css/
-│   ├── styles.css          # Main styles
-│   └── responsive.css      # Mobile/tablet styles
+│   ├── styles.css                # Main styles (IBM Blue & Teal theme)
+│   ├── landing.css               # Landing page styles
+│   └── responsive.css            # Mobile/tablet styles
 ├── js/
-│   ├── app.js              # Application entry point
-│   ├── config.js           # MAS configurations (6)
-│   ├── flavors.js          # Worker flavors (18)
-│   ├── calculator.js       # Cost calculations
-│   ├── risk-assessor.js    # Risk assessment
-│   ├── recommendations.js  # Recommendations engine
-│   ├── storage.js          # localStorage wrapper
-│   └── ui.js               # UI controller
-├── docs/                   # Documentation
-├── ARCHITECTURE.md         # Technical architecture
-├── IMPLEMENTATION_PLAN.md  # Implementation details
-├── UI_MOCKUP.md           # UI design specs
-├── WORKER_FLAVORS.md      # Flavor pricing reference
-├── PLANNING_SUMMARY.md    # Project summary
-└── README.md              # This file
+│   ├── app.js                    # Application entry point
+│   ├── auth.js                   # Admin authentication
+│   ├── mode-selector.js          # Landing page mode selection
+│   ├── config.js                 # MAS configurations (6)
+│   ├── flavors.js                # Worker flavors (46)
+│   ├── calculator.js             # Cost calculations
+│   ├── risk-assessor.js          # Risk assessment
+│   ├── recommendations.js        # Recommendations engine
+│   ├── storage.js                # localStorage wrapper
+│   ├── cluster-analysis.js       # IBM Cloud cluster analysis
+│   ├── pfvt-integration.js       # PFVT pipeline integration
+│   └── ui.js                     # UI controller
+├── backend/
+│   ├── server.js                 # Express server
+│   ├── ibm-cloud-service.js      # IBM Cloud API integration
+│   ├── excel-generator.js        # Excel report generation
+│   ├── package.json              # Node dependencies
+│   ├── .env.example              # Environment template
+│   └── README.md                 # Backend documentation
+├── docs/                         # Documentation
+├── ARCHITECTURE.md               # Technical architecture
+├── IMPLEMENTATION_PLAN.md        # Implementation details
+├── UI_MOCKUP.md                  # UI design specs
+├── WORKER_FLAVORS.md             # Flavor pricing reference
+├── PLANNING_SUMMARY.md           # Project summary
+├── CLUSTER_ANALYSIS_GUIDE.md     # Cluster analysis guide
+├── COST_CALCULATION_EXPLAINED.md # Cost formula documentation
+└── README.md                     # This file
 ```
 
 ## 🔧 Configuration
@@ -193,7 +311,37 @@ Defined in `js/calculator.js`. Adjust thresholds in the `calculateCostScore()` f
 - ✅ Edge 90+
 - ✅ Mobile browsers (iOS Safari, Chrome Mobile)
 
+## 🔐 Security
+
+### Admin Access
+- Admin password: `pfvt2024`
+- Change password in `js/auth.js`:
+  ```javascript
+  this.adminPassword = 'your_new_password';
+  ```
+- Session-based authentication (cleared on browser close)
+
+### IBM Cloud API Key
+- Store API key in `backend/.env` (never commit to Git)
+- Use environment variables for sensitive data
+- Rotate API keys regularly
+- Follow IBM Cloud security best practices
+
 ## 🎨 Customization
+
+### IBM Blue & Teal Theme
+Current color scheme in `css/landing.css` and `css/styles.css`:
+```css
+/* IBM Colors */
+--ibm-blue: #0f62fe;
+--ibm-blue-hover: #0353e9;
+--ibm-teal: #00b4a0;
+
+/* Cost Score Colors */
+--score-green: #24a148;
+--score-amber: #f1c21b;
+--score-red: #fa4d56;
+```
 
 ### Branding
 Update colors in `css/styles.css`:
